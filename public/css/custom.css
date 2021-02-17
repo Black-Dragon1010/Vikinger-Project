@@ -1,0 +1,52 @@
+.blog-category:before {
+  content: "";
+  display: none !important;
+}
+
+.image-spaced {
+  margin-top: 15px;
+}
+
+.hidden-row {
+  display: none !important;
+}
+
+.e-toast-container .e-toast.e-toast-danger {
+  margin-right: 100px;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  height: 300px;
+}
+
+.top-m-40 {
+  margin-top: 40px !important;
+}
+
+.top-m-20 {
+  margin-top: 20px !important;
+}
+
+.top-m-5 {
+  margin-top: 8px !important;
+}
+
+.post-open-content-body p {
+  margin-top: 10px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5 !important;
+  color: #212529;
+  text-align: left;
+}
+
+.post-open-content-body p:first-child {
+  margin-top: 0 !important;
+}
+
+.related-posts {
+  width: 100% !important;
+  margin-top: 0 !important;
+}
+
