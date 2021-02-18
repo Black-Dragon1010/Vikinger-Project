@@ -55,7 +55,9 @@
                             <!-- /INFORMATION LINE TITLE -->
 
                             <!-- INFORMATION LINE TEXT -->
-                            <p class="information-line-text">March 26th, 2017</p>
+                            <p class="information-line-text">
+                            {!! date("jS F, Y", strtotime($user->created_at)); !!}
+                            </p>
                             <!-- /INFORMATION LINE TEXT -->
                         </div>
                         <!-- /INFORMATION LINE -->
@@ -67,7 +69,7 @@
                             <!-- /INFORMATION LINE TITLE -->
 
                             <!-- INFORMATION LINE TEXT -->
-                            <p class="information-line-text">Los Angeles, California</p>
+                            <p class="information-line-text">{!! $user->city_name !!}</p>
                             <!-- /INFORMATION LINE TEXT -->
                         </div>
                         <!-- /INFORMATION LINE -->
@@ -79,7 +81,7 @@
                             <!-- /INFORMATION LINE TITLE -->
 
                             <!-- INFORMATION LINE TEXT -->
-                            <p class="information-line-text">United States</p>
+                            <p class="information-line-text">{!! $user->country_name !!}</p>
                             <!-- /INFORMATION LINE TEXT -->
                         </div>
                         <!-- /INFORMATION LINE -->
@@ -91,7 +93,7 @@
                             <!-- /INFORMATION LINE TITLE -->
 
                             <!-- INFORMATION LINE TEXT -->
-                            <p class="information-line-text">32 Years</p>
+                            <p class="information-line-text">{!! date_diff(date_create($user->birthday), date_create('now'))->y; !!} Years</p>
                             <!-- /INFORMATION LINE TEXT -->
                         </div>
                         <!-- /INFORMATION LINE -->
@@ -103,7 +105,7 @@
                             <!-- /INFORMATION LINE TITLE -->
 
                             <!-- INFORMATION LINE TEXT -->
-                            <p class="information-line-text"><a href="#">www.gamehuntress.com</a></p>
+                            <p class="information-line-text"><a href="https://{!! $user->web !!}" target="_blank">{!! $user->web !!}</a></p>
                             <!-- /INFORMATION LINE TEXT -->
                         </div>
                         <!-- /INFORMATION LINE -->

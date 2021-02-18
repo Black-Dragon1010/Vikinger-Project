@@ -4,9 +4,13 @@ namespace App\Http\Controllers\profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\blog\BlogAPIController;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use App\Message;
 use App\User;
+use App\Blog;
+use App\Friend;
 
 class ProfileController extends Controller
 {
@@ -16,25 +20,41 @@ class ProfileController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     private $data;
+    private $blog_model;
+    private $friend_model;
+    private $editable;
+    private $user_model;
     public function __construct(){
-
+        $this->blog_model = new Blog;
+        $this->friend_model = new Friend;
+        $this->user_model = new User;
     }
-    public function index() {
-        if($user = Sentinel::check()) {
-            /*
-             * Update user online status
-             */
-            if(\GeneralHelper::markOnlineStatus($user->id, 'Online')) {
-                $this->data['user'] = $user;
-                $this->data['members'] = User::where('id', '!=', $user->id)->get();
-                $this->data['showChatBar'] = true;
-                return view('front.profile.index', $this->data);
+    public function index(Request $request) {
+        if(isset($request->user_id)){
+            $user_id = $request->user_id;
+            // create visit log to database only when the ip address is new
+            $this->createLog($user_id, $request);
+            
+            if($user = Sentinel::check()) {
+                /*
+                 * Update user online status
+                 */
+                if(\GeneralHelper::markOnlineStatus($user->id, 'Online')) {
+                    $this->data['user'] = $user;
+                                        
+                }
             }
-        }
-        else {
+            else {
+                $this->data['user'] = $this->user_model->find($user_id);
+            }
+            $this->data['members'] = User::where('id', '!=', $user->id)->get();
+            $this->data['showChatBar'] = true;
+            $this->data['blog_count'] = $this->blog_model->userPostNumber($user_id);
+            $this->data['friend_count'] = $this->friend_model->friendCount($user_id);
+            return view('front.profile.index', $this->data);
+        } else {
             abort(404);
         }
-
     }
     public function hubInfo() {
     	if($user = Sentinel::check()) {
@@ -87,6 +107,17 @@ class ProfileController extends Controller
                 $res = ['token' => csrf_token(), 'message'=>"success"];
                 echo json_encode($res);
             }
+        }
+    }
+    public function createLog($user_id, Request $request){
+        $visit_ip = $request->ip();
+        $visit_log = DB::table('visit_log')->where('user_id', $user_id)->where('ip_address', $visit_ip)->count();
+        if($visit_log > 0){//already exists
+            //ignore
+        } else {
+            //create log and increase the visit_count in 'users' table
+            DB::table('visit_log')->insert(['ip_address'=>$visit_ip, 'user_id'=>$user_id]);
+            $this->user_model->find($user_id)->increment('visit_count');
         }
     }
     public function generateRandomString($length=20)

@@ -40,4 +40,22 @@ class Blog extends Model
     public function getThreadedReplies() {
         return $this->comments()->with('user')->get()->threaded();
     }
+
+    public function userPostNumber($user_id) {
+        
+        $blog_model = new Blog;
+        try {
+            $blog_count = $blog_model->where('user_id', $user_id)->count();
+            return $blog_count;
+            
+        } catch (\Exception $e) {
+            $data = [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+                'data' => null,
+                'code' => 500
+            ];
+            return response()->json($data,500);
+        }
+    }
 }

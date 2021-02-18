@@ -135,7 +135,10 @@
             <!-- /USER SHORT DESCRIPTION TITLE -->
 
             <!-- USER SHORT DESCRIPTION TEXT -->
-            <p class="user-short-description-text"><a href="#">{!! $user->status !!}</a></p>
+            <p class="user-short-description-text">
+                <!-- <a href="#">{!! $user->status !!}</a> -->
+                <a href="https://{!! $user->web !!}" target="_blank">{!! $user->web !!}</a>
+            </p>
             <!-- /USER SHORT DESCRIPTION TEXT -->
         </div>
         <!-- /USER SHORT DESCRIPTION -->
@@ -261,7 +264,7 @@
             <!-- USER STAT -->
             <div class="user-stat big">
                 <!-- USER STAT TITLE -->
-                <p class="user-stat-title">930</p>
+                <p class="user-stat-title">{!! $blog_count !!}</p>
                 <!-- /USER STAT TITLE -->
 
                 <!-- USER STAT TEXT -->
@@ -273,7 +276,7 @@
             <!-- USER STAT -->
             <div class="user-stat big">
                 <!-- USER STAT TITLE -->
-                <p class="user-stat-title">82</p>
+                <p class="user-stat-title">{!! $friend_count !!}</p>
                 <!-- /USER STAT TITLE -->
 
                 <!-- USER STAT TEXT -->
@@ -285,7 +288,7 @@
             <!-- USER STAT -->
             <div class="user-stat big">
                 <!-- USER STAT TITLE -->
-                <p class="user-stat-title">5.7k</p>
+                <p class="user-stat-title">{!! $user->visit_count !!}</p>
                 <!-- /USER STAT TITLE -->
 
                 <!-- USER STAT TEXT -->
@@ -297,11 +300,16 @@
             <!-- USER STAT -->
             <div class="user-stat big">
                 <!-- USER STAT IMAGE -->
-                <img class="user-stat-image" src="{!! asset('theme/img/flag/usa.png') !!}" alt="flag-usa">
+                <img class="user-stat-image" src="
+                <?php
+                    $flag_name = url('/'). "/css/flags/".$user->country.".png";
+                    echo( $flag_name);
+                ?>
+                " alt="flag">
                 <!-- /USER STAT IMAGE -->
 
                 <!-- USER STAT TEXT -->
-                <p class="user-stat-text">usa</p>
+                <p class="user-stat-text">{!! $user->country!!}</p>
                 <!-- /USER STAT TEXT -->
             </div>
             <!-- /USER STAT -->

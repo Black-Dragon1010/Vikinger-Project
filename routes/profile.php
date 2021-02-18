@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
  * Category Routes
  */
 Route::group(array('prefix' => 'profile'), function () {
-	Route::get('/', array('uses'=>'profile\ProfileController@index', 'as'=>'profile.index'));
+	Route::get('/index', array('uses'=>'profile\ProfileController@index', 'as'=>'profile.index'));
 	Route::get('/hub_info', array('uses'=>'profile\ProfileController@hubInfo', 'as'=>'profile.hub_info'));
     Route::post('/upload_avatar', array('uses'=>'profile\ProfileController@uploadAvatar', 'as'=>'profile.upload_avatar'));
     Route::post('/upload_cover', array('uses'=>'profile\ProfileController@uploadCover', 'as'=>'profile.upload_cover'));
