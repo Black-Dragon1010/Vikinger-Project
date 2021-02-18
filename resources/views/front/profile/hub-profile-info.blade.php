@@ -15,7 +15,7 @@
     <!-- SECTION BANNER -->
     <div class="section-banner">
       <!-- SECTION BANNER ICON -->
-      <img class="section-banner-icon" src="img/banner/accounthub-icon.png" alt="accounthub-icon">
+      <img class="section-banner-icon" src="{!! asset('theme/img/banner/accounthub-icon.png') !!}" alt="accounthub-icon">
       <!-- /SECTION BANNER ICON -->
   
       <!-- SECTION BANNER TITLE -->
