@@ -45,7 +45,8 @@ class ChatController extends DefaultController
             }
         }
         else {
-            abort(404);
+            //abort(404);
+            return redirect('/authentication/login');
         }
 
     }
