@@ -288,7 +288,7 @@
             <!-- USER STAT -->
             <div class="user-stat big">
                 <!-- USER STAT TITLE -->
-                <p class="user-stat-title">{!! $user->visit_count !!}</p>
+                <p class="user-stat-title">{!! GeneralHelper::formatnumber($user->visit_count) !!}</p>
                 <!-- /USER STAT TITLE -->
 
                 <!-- USER STAT TEXT -->

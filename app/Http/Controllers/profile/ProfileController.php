@@ -84,11 +84,65 @@ class ProfileController extends Controller
             return redirect('/authentication/login');
         }
     }
+    public function getTimeLine(Request $request) {
+        if(isset($request->user_id)){
+            $user_id = $request->user_id;
+            // create visit log to database only when the ip address is new
+            $this->createLog($user_id, $request);
+            
+            if($user = Sentinel::check()) {
+                /*
+                 * Update user online status
+                 */
+                if(\GeneralHelper::markOnlineStatus($user->id, 'Online')) {
+                    $this->data['user'] = $user;
+                                        
+                }
+            }
+            else {
+                $this->data['user'] = $this->user_model->find($user_id); 
+            }
+            $this->data['members'] = User::where('id', '!=', $user->id)->get();
+            $this->data['showChatBar'] = true;
+            $this->data['blog_count'] = $this->blog_model->userPostNumber($user_id);
+            $this->data['friend_count'] = $this->friend_model->friendCount($user_id);
+            return view('front.profile.timeline', $this->data);
+        } else {
+            abort(404);
+        }
+    }
+    public function getFriendList(Request $request) {
+        if(isset($request->user_id)){
+            $user_id = $request->user_id;
+            // create visit log to database only when the ip address is new
+            $this->createLog($user_id, $request);
+            
+            if($user = Sentinel::check()) {
+                /*
+                 * Update user online status
+                 */
+                if(\GeneralHelper::markOnlineStatus($user->id, 'Online')) {
+                    $this->data['user'] = $user;  
+                }
+            }
+            else {
+                $this->data['user'] = $this->user_model->find($user_id); 
+            }
+            $this->data['members'] = User::where('id', '!=', $user->id)->get();
+            $this->data['showChatBar'] = true;
+            $this->data['blog_count'] = $this->blog_model->userPostNumber($user_id);
+            $this->data['friend_count'] = $this->friend_model->friendCount($user_id);
+            $friend_id_list = $this->friend_model->getFriends($user_id);
+            var_dump($friend_id_list); die;
+            return view('front.profile.friends', $this->data);
+        } else {
+            abort(404);
+        }
+    }
     public function uploadAvatar(Request $request) {
         if($user = Sentinel::check()) {
             if($request->hasFile('file')) {
                 $file = $request->file('file');
-    
                 //you also need to keep file extension as well
                 //$name = $file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
                 $name = $this->generateRandomString(20).'.'.$file->getClientOriginalExtension();
