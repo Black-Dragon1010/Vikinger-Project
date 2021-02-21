@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DateTime;
 
 class Blog extends Model
 {
@@ -40,7 +41,7 @@ class Blog extends Model
     public function getThreadedReplies() {
         return $this->comments()->with('user')->get()->threaded();
     }
-
+    // Julia added part
     public function userPostNumber($user_id) {
         
         $blog_model = new Blog;
@@ -58,4 +59,24 @@ class Blog extends Model
             return response()->json($data,500);
         }
     }
+    public function lastPostUpdateTime($user_id) {
+        $model = new Blog;
+        $updated_at = $model->where('user_id', $user_id)->orderby('updated_at', 'DESC')->first()->updated_at;
+        $datetime1 = new DateTime();
+        $datetime2 = new DateTime($updated_at);
+        $difference = $datetime1->diff($datetime2)->d;
+        if($difference > 0){
+            if($difference == 1)
+                return $difference.' Days Ago';
+            else
+                return $difference.' Day Ago';
+        } else {
+            $difference = $datetime1->diff($datetime2)->h;
+            if($difference > 1)
+                return $difference.' Hours Ago';
+            else
+                return $difference.' Hour Ago';
+        }
+    }
+    
 }

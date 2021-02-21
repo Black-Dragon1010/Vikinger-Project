@@ -11,6 +11,8 @@ use App\Message;
 use App\User;
 use App\Blog;
 use App\Friend;
+use App\Resume;
+use App\Comment;
 
 class ProfileController extends Controller
 {
@@ -24,10 +26,15 @@ class ProfileController extends Controller
     private $friend_model;
     private $editable;
     private $user_model;
+    private $resume_model;
+    private $comment_model;
     public function __construct(){
         $this->blog_model = new Blog;
         $this->friend_model = new Friend;
         $this->user_model = new User;
+        $this->resume_model = new Resume;
+        $this->comment_model = new Comment;
+        
     }
     public function index(Request $request) {
         if(isset($request->user_id)){
@@ -51,6 +58,10 @@ class ProfileController extends Controller
             $this->data['showChatBar'] = true;
             $this->data['blog_count'] = $this->blog_model->userPostNumber($user_id);
             $this->data['friend_count'] = $this->friend_model->friendCount($user_id);
+            $this->data['resume'] = $this->resume_model->arrangeResume($user_id);
+            $this->data['last_friend_added'] = $this->friend_model->lastFriendAddTime($user_id);
+            $this->data['last_post_updated'] = $this->blog_model->lastPostUpdateTime($user_id);
+            $this->data['most_commented_post'] = $this->comment_model->getMostCommentedPost($user_id);
             return view('front.profile.index', $this->data);
         } else {
             abort(404);

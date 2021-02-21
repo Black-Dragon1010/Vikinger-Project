@@ -571,69 +571,30 @@
           <div class="widget-box-content">
             <!-- TIMELINE INFORMATION LIST -->
             <div class="timeline-information-list">
+            @foreach($resume as $item)
               <!-- TIMELINE INFORMATION -->
               <div class="timeline-information">
                 <!-- TIMELINE INFORMATION TITLE -->
-                <p class="timeline-information-title">Lead Costume Designer</p>
+                <p class="timeline-information-title">{{$item->title}}</p>
                 <!-- /TIMELINE INFORMATION TITLE -->
       
                 <!-- TIMELINE INFORMATION DATE -->
-                <p class="timeline-information-date">2015 - NOW</p>
+                <p class="timeline-information-date">{{$item->start}} - 
+                @if($item->end == 8888)
+                NOW
+                @else
+                {!! $item->end !!}
+                @endif
+                </p>
                 <!-- /TIMELINE INFORMATION DATE -->
       
                 <!-- TIMELINE INFORMATION TEXT -->
-                <p class="timeline-information-text">Lead Costume Designer for the "Amazzo Costumes" agency. I'm in charge of a ten person group, overseeing all the proyects and talking to potential clients. I also handle some face to face interviews for new candidates.</p>
+                <p class="timeline-information-text">{!! $item->description !!}</p>
                 <!-- /TIMELINE INFORMATION TEXT -->
               </div>
               <!-- /TIMELINE INFORMATION -->
+            @endforeach
       
-              <!-- TIMELINE INFORMATION -->
-              <div class="timeline-information">
-                <!-- TIMELINE INFORMATION TITLE -->
-                <p class="timeline-information-title">Costume Designer</p>
-                <!-- /TIMELINE INFORMATION TITLE -->
-      
-                <!-- TIMELINE INFORMATION DATE -->
-                <p class="timeline-information-date">2013 - 2015</p>
-                <!-- /TIMELINE INFORMATION DATE -->
-      
-                <!-- TIMELINE INFORMATION TEXT -->
-                <p class="timeline-information-text">Costume Designer for the "Jenny Taylors" agency. Was in charge of working side by side with the best designers in order to complete and perfect orders.</p>
-                <!-- /TIMELINE INFORMATION TEXT -->
-              </div>
-              <!-- /TIMELINE INFORMATION -->
-      
-              <!-- TIMELINE INFORMATION -->
-              <div class="timeline-information">
-                <!-- TIMELINE INFORMATION TITLE -->
-                <p class="timeline-information-title">Designer Intern</p>
-                <!-- /TIMELINE INFORMATION TITLE -->
-      
-                <!-- TIMELINE INFORMATION DATE -->
-                <p class="timeline-information-date">2012 - 2013</p>
-                <!-- /TIMELINE INFORMATION DATE -->
-      
-                <!-- TIMELINE INFORMATION TEXT -->
-                <p class="timeline-information-text">Intern for the "Jenny Taylors" agency. Was in charge of the communication with the clients and day-to-day chores.</p>
-                <!-- /TIMELINE INFORMATION TEXT -->
-              </div>
-              <!-- /TIMELINE INFORMATION -->
-      
-              <!-- TIMELINE INFORMATION -->
-              <div class="timeline-information">
-                <!-- TIMELINE INFORMATION TITLE -->
-                <p class="timeline-information-title">The Antique College of Design</p>
-                <!-- /TIMELINE INFORMATION TITLE -->
-      
-                <!-- TIMELINE INFORMATION DATE -->
-                <p class="timeline-information-date">2007 - 2012</p>
-                <!-- /TIMELINE INFORMATION DATE -->
-      
-                <!-- TIMELINE INFORMATION TEXT -->
-                <p class="timeline-information-text">Bachelor of Costume Design in the Antique College. It was a five years intensive career, plus a course about Cosplays. Average: A+</p>
-                <!-- /TIMELINE INFORMATION TEXT -->
-              </div>
-              <!-- /TIMELINE INFORMATION -->
             </div>
             <!-- /TIMELINE INFORMATION LIST -->
           </div>
@@ -706,7 +667,7 @@
               <!-- /ACHIEVEMENT STATUS INFO -->
       
               <!-- ACHIEVEMENT STATUS IMAGE -->
-              <img class="achievement-status-image" src="img/badge/completedq-s.png" alt="bdage-completedq-s">
+              <img class="achievement-status-image" src="{!! asset('theme/img/badge/completedq-s.png') !!}" alt="bdage-completedq-s">
               <!-- /ACHIEVEMENT STATUS IMAGE -->
             </div>
             <!-- /ACHIEVEMENT STATUS -->
@@ -730,7 +691,7 @@
               <!-- /ACHIEVEMENT STATUS INFO -->
       
               <!-- ACHIEVEMENT STATUS IMAGE -->
-              <img class="achievement-status-image" src="img/badge/unlocked-badge.png" alt="bdage-unlocked-badge">
+              <img class="achievement-status-image" src="{!! asset('theme/img/badge/unlocked-badge.png') !!}" alt="bdage-unlocked-badge">
               <!-- /ACHIEVEMENT STATUS IMAGE -->
             </div>
             <!-- /ACHIEVEMENT STATUS -->
@@ -794,7 +755,7 @@
                   <!-- /STAT BLOCK TITLE -->
       
                   <!-- STAT BLOCK TEXT -->
-                  <p class="stat-block-text">5 Days Ago</p>
+                  <p class="stat-block-text">{!! $last_friend_added !!}</p>
                   <!-- /STAT BLOCK TEXT -->
                 </div>
                 <!-- /STAT BLOCK INFO -->
@@ -820,7 +781,7 @@
                   <!-- /STAT BLOCK TITLE -->
       
                   <!-- STAT BLOCK TEXT -->
-                  <p class="stat-block-text">1 Day Ago</p>
+                  <p class="stat-block-text">{!! $last_post_updated !!}</p>
                   <!-- /STAT BLOCK TEXT -->
                 </div>
                 <!-- /STAT BLOCK INFO -->
@@ -846,7 +807,7 @@
                   <!-- /STAT BLOCK TITLE -->
       
                   <!-- STAT BLOCK TEXT -->
-                  <p class="stat-block-text">56 Comments</p>
+                  <p class="stat-block-text">{!! $most_commented_post !!} Comments</p>
                   <!-- /STAT BLOCK TEXT -->
                 </div>
                 <!-- /STAT BLOCK INFO -->
@@ -862,7 +823,7 @@
                     <use xlink:href="#svg-thumbs-up"></use>
                   </svg>
                   <!-- /STAT BLOCK DECORATION ICON -->
-                </div>a
+                </div>  
                 <!-- /STAT BLOCK DECORATION -->
       
                 <!-- STAT BLOCK INFO -->
@@ -872,7 +833,7 @@
                   <!-- /STAT BLOCK TITLE -->
       
                   <!-- STAT BLOCK TEXT -->
-                  <p class="stat-block-text">904 Likes</p>
+                  <p class="stat-block-text">0 Likes</p>
                   <!-- /STAT BLOCK TEXT -->
                 </div>
                 <!-- /STAT BLOCK INFO -->
