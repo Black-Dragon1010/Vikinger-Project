@@ -36,9 +36,9 @@ class ProfileController extends Controller
         $this->comment_model = new Comment;
         
     }
-    public function index(Request $request) {
-        if(isset($request->user_id)){
-            $user_id = $request->user_id;
+    public function index($user_id, Request $request) {
+        if(isset($user_id)){
+            
             // create visit log to database only when the ip address is new
             $this->createLog($user_id, $request);
             
@@ -67,7 +67,7 @@ class ProfileController extends Controller
             abort(404);
         }
     }
-    public function hubInfo() {
+    public function hubInfo($user_id) {
     	if($user = Sentinel::check()) {
             /*
              * Update user online status
@@ -84,9 +84,8 @@ class ProfileController extends Controller
             return redirect('/authentication/login');
         }
     }
-    public function getTimeLine(Request $request) {
-        if(isset($request->user_id)){
-            $user_id = $request->user_id;
+    public function getTimeLine($user_id, Request $request) {
+        if(isset($user_id)){
             // create visit log to database only when the ip address is new
             $this->createLog($user_id, $request);
             
@@ -111,9 +110,9 @@ class ProfileController extends Controller
             abort(404);
         }
     }
-    public function getFriendList(Request $request) {
-        if(isset($request->user_id)){
-            $user_id = $request->user_id;
+    public function getFriendList($user_id, Request $request) {
+        if(isset($user_id)){
+            
             // create visit log to database only when the ip address is new
             $this->createLog($user_id, $request);
             
@@ -132,8 +131,8 @@ class ProfileController extends Controller
             $this->data['showChatBar'] = true;
             $this->data['blog_count'] = $this->blog_model->userPostNumber($user_id);
             $this->data['friend_count'] = $this->friend_model->friendCount($user_id);
-            $friend_id_list = $this->friend_model->getFriends($user_id);
-            var_dump($friend_id_list); die;
+            $this->data['friend_list'] = $this->friend_model->getFriends($user_id);
+            
             return view('front.profile.friends', $this->data);
         } else {
             abort(404);

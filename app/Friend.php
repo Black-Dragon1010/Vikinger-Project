@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DateTime;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class Friend extends Model
 {
@@ -37,12 +38,9 @@ class Friend extends Model
     public function getFriends($user_id) {
         $model = new Friend;
         $friends = $model->where('active_user', $user_id)->orwhere('passive_user', $user_id)->get();
-        $friend_users = User::whereIn('id', $friends)->paginate(12)->toArray(); 
-        var_dump($friend_users);die;
-        for($i = 0; $i<count($friend_users); $i++) {
-            $id = $friend_users[$i];
-            var_dump($id);die;
-        }
-        return $friend_users;
+        //$friend_users = User::whereIn('id', $friends)->paginate(12)->toArray(); 
+        $res = DB::table('laravel.user_with_postcount')->whereIn('id', $friends)->paginate(1);
+        
+        return $res;
     }
 }

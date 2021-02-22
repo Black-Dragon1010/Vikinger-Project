@@ -2,7 +2,7 @@
 <div class="profile-header">
     <!-- PROFILE HEADER COVER -->
     <figure class="profile-header-cover liquid">
-        <img src="{!! asset($user->image) !!}" alt="cover-01">
+        <img src="{!! asset($user->image) !!}" alt="cover">
     </figure>
     <!-- /PROFILE HEADER COVER -->
 
